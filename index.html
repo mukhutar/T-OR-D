@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Truth or Dare 🔥</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+    }
+
+    .game {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      animation: pop 0.6s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 2.2rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      min-height: 70px;
+      margin: 20px 0;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 14px 26px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .truth {
+      background: #00e5ff;
+      color: #003b44;
+    }
+
+    .dare {
+      background: #ff4081;
+      color: #fff;
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .reset {
+      margin-top: 20px;
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+    }
+
+    .footer {
+      margin-top: 15px;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game">
+    <h1>Truth or Dare 🎭</h1>
+    <p id="output">Choose Truth or Dare to begin!</p>
+
+    <div class="buttons">
+      <button class="truth" onclick="getTruth()">Truth</button>
+      <button class="dare" onclick="getDare()">Dare</button>
+    </div>
+
+    <button class="reset" onclick="resetGame()">Reset</button>
+
+    <div class="footer">Have fun 😈</div>
+  </div>
+
+  <script>
+    const truths = [
+     "Have you ever accidentally sent a sext to the wrong person?",
+
+     "Who would you like to sext right now?",
+
+     "Why dont, you do it?",
+
+"Who in your contact list would you most want us to have a threesome with?",
+
+"What’s your favorite body part of mine?",
+
+"What’s your biggest roleplay fantasy?",
+
+"Who was the first person you had a crush on?",
+
+"Where’s the craziest place you want to hook up with me?",
+
+"Have you ever had a sex dream about me?",
+
+"What’s the weirdest thing anyone has ever said to you during sex?",
+
+"What’s the weirdest thing you’ve ever said to anyone during sex?",
+"Would you like to make a sex tape with me?",
+
+"Would you rather do a pole dance or a striptease?",
+
+"What part of my body would you like to lick right now?",
+
+"How many one-night stands have you had?",
+"Have you ever put a sexy selfie on social media?",
+
+"What’s your biggest turn-on when you think about me?",
+
+"If I gave you whipped cream right now, what would you do with it?",
+"What’s the dirtiest thing you’d like me to do to you?",
+
+"Do you think my best friend is hot?",
+
+"How soon after meeting someone have you slept with them for the first time?",
+"Have you ever broken a bed during sex?",
+
+"Would you rather only sext for the rest of your life, or only have phone sex?",
+
+"What common turn-off really turns you on?",
+
+"When did you first realize you were attracted to me?",
+"Have you ever faked an orgasm?",
+"Have you ever faked an orgasm... with me?",
+
+"Have you ever slept with a co-worker?",
+
+"Would you want a threesome with me and my best friend?",
+
+"Would you want a threesome with me and your best friend?",
+"What’s the craziest thing you’ve done in a sex dream?",
+
+"Have you ever been turned on at work? What happened? And what did you do about it?",
+
+"Have you ever been to a sex club?",
+"...Would you like to?",
+"When was the last time I turned you on?",
+
+"Is there a sex toy you’d like to try on me?",
+
+"Have you ever injured yourself during sex?",
+"Have you ever had sex in a public place?",
+"When was the last time you touched yourself?",
+"...What were you thinking about?",
+"Would you rather be dominant or submissive?",
+
+"Have you ever fallen asleep during sex?",
+
+"Have you ever been to a strip club?",
+"Has anyone ever walked in on you during sex?",
+
+"Would you rather only use your tongue or only use your fingers?",
+
+"What’s your favorite thing about my body?",
+"Would you rather only have morning sex for the rest of your life, or never have morning sex again?",
+"What was your first sexual fantasy?",
+"Have you ever tried swinging or partner swapping...Would you like to??",
+
+
+"Which celebrity would you like to see me make out with?" ,
+
+"Would you like to watch me make out with my best friend?" ,
+
+"Would you like to watch me make out with your best friend?" ,
+"How would you describe my sexual personality?" ,
+
+"What’s your favorite memory of us having sex..Is there anything that could have made it even better??",
+
+"What’s the sexiest gift I could give you?",
+"What’s the sexiest gift you’d like to give me?",
+"Have you ever kept a relationship secret?",
+"What’s your most romantic memory of me?",
+
+"Have you ever experimented with people of different genders?"
+    ];
+
+    const dares = [
+"  Put an ice cube in your underwear for one minute.",
+"Perform a sexy belly dance for your partner.",
+"Blindfold your partner and guide them around your body using only touch.",
+"Undress your partner using only your teeth.",
+
+"Clean the house naked.",
+
+"Go about your normal day but with no underwear on.",
+
+"Give your partner a massage, blindfolded.",
+
+"Remove your partner’s underwear using only your feet.",
+
+"Use each other as a human plate — whipped cream, chocolate sauce, whatever takes your fancy!",
+
+"Share a fantasy that your loved one’s never heard before.",
+"Handcuff your partner and treat them to their favorite turn-ons.",
+"Read an erotic bedtime story out loud.",
+"Set up a nude photo shoot and capture your favorite poses.",
+
+"Go skinny dipping in your local river or lake.",
+"Sext your partner during work.",
+"Touch yourselves while your partner watches.",
+"Give your partner a lap dance.",
+
+"Pick one part of your body and have your partner focus all their attention there.",
+"Choose a place you’ve never had sex and take your partner there.",
+"Draw a picture with whipped cream on your partner’s body.",
+"...Then lick it off.",
+
+"Try a new pick-up line on your partner.",
+"Re-enact an X-rated version of your first kiss.",
+"Choose your fantasy orgy guests from your partner’s contact list.",
+"Play the rest of the game naked.",
+
+"Feed your partner using only your mouth.",
+"Give your significant other a full-body massage.",
+"Act out the first time you slept together.",
+"Have sex in a new part of the house for the first time.",
+
+"Kiss your partner passionately, like the climax of a movie.",
+"Perform a sexy pole dance with a broom or a mop.",
+"Use body paint to turn each other into a work of art.",
+"Twerk to the sexiest song you can think of.",
+"Confess your kinky guilty pleasure and try it together.",
+
+"Let your partner dress you up, then direct you in a striptease.",
+"Challenge your loved one to a sexy pillow fight.",
+"Spell out what you want to do to your partner using only emojis.",
+"Pretend you work at a phone sex line and have your partner call in.",
+
+"Blindfold yourself and guess which part of your partner’s body you’re touching.",
+"Play with melted wax (but be careful!)",
+"Hide chocolate or candy in your clothes and have your significant other find it.",
+"Send a sexy selfie when they least expect it.",
+"Balance an ice cube on your belly button for as long as you can bear it.",
+"Show your partner the last X-rated clip you watched...And describe why it turned you on.",
+
+
+"Put on your significant other’s underwear and strut your stuff on the catwalk.",
+"Shave your partner’s body hair.",
+"Pretend to give oral sex to the nearest object you see.",
+"Try tantric sex."
+    ];
+
+    const output = document.getElementById("output");
+
+    function getTruth() {
+      const random = Math.floor(Math.random() * truths.length);
+      output.textContent = truths[random];
+    }
+
+    function getDare() {
+      const random = Math.floor(Math.random() * dares.length);
+      output.textContent = dares[random];
+    }
+
+    function resetGame() {
+      output.textContent = "Choose Truth or Dare to begin!";
+    }
+  </script>
+
+</body>
+</html>
